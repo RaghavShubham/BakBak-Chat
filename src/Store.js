@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import io from 'socket.io-client';
 
 export const Context = React.createContext();
 
@@ -33,12 +34,20 @@ function reducer(state, action) {
             return state
     }
 }
+
+let socket;
+
 export default function Store(props) {
 
-    const reducerHook = React.useReducer(reducer, initState);
+    if(!socket){
+        socket = io('http://localhost:3001');
+        console.log(socket);
+    }
+
+    const [ allChats ] = React.useReducer(reducer, initState);
 
     return (
-        <Context.Provider value={reducerHook}>
+        <Context.Provider value={{allChats}}>
             {props.children}
         </Context.Provider>
     )

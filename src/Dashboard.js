@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
 
-  const [allChats] = React.useContext(Context);
+  const {allChats} = React.useContext(Context);
   
   const topics = Object.keys(allChats);
     
@@ -70,9 +70,9 @@ export default function Dashboard() {
           </div>
           <div className={classes.chatWindow}>
             {allChats[activeTopic].map((chat, i) => (
-              <div className={classes.flex}>
+              <div className={classes.flex} key={i}>
                 <Chip variant="outlined" size="small" label={chat.from} />
-                <Typography variant="p">{chat.msg}</Typography>
+                <Typography variant="body1">{chat.msg}</Typography>
               </div>
             ))}
           </div>
